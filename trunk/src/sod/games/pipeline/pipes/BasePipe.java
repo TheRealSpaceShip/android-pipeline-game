@@ -23,6 +23,22 @@ abstract class BasePipe implements Pipe {
 		}
 	}
 	
+	@Override 
+	public boolean directFlow(Flow flow){
+		Side comeFrom = flow.comeFrom();
+		for (Pair<Side, Side> connector : connectors){
+			if (connector.getFirst() == comeFrom)
+				{
+				flow.setDirection(connector.getSecond());
+				return true;
+				}else if (connector.getSecond() == comeFrom){
+					flow.setDirection(connector.getFirst());
+					return true;
+				}
+		}
+		return false;
+	}
+	
 	private Side cwRotate(Side side){
 		switch(side){
 		case North:
