@@ -1,8 +1,10 @@
 package sod.games.pipeline.pipes;
 
 public class LinePipe extends BasePipe {
-	public LinePipe(int[] position_){
-		super(position_);
+	static private boolean D = true;
+	static private String TAG = "LinePipe";
+	public LinePipe(){
+		super();
 		connectors.add(new Pair<Side,Side>(Side.West, Side.East));
 	}
 	

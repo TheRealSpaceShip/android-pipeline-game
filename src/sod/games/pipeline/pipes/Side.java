@@ -33,5 +33,10 @@ public enum Side {
 		}
 		return null;
 	}
+
+	@Override
+	public String toString() {
+		return super.toString().substring(0,1);
+	}
 	
 }

@@ -1,8 +1,10 @@
 package sod.games.pipeline.pipes;
 
 public class CrossPipe extends BasePipe {
-	public CrossPipe(int[] position_){
-		super(position_);
+	static private boolean D = true;
+	static private String TAG = "CornerPipe";
+	public CrossPipe(){
+		super();
 		connectors.add(new Pair<Side,Side>(Side.North, Side.South));
 		connectors.add(new Pair<Side,Side>(Side.West, Side.East));
 	}

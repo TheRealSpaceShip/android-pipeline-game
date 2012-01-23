@@ -25,10 +25,10 @@ public class Sewerage {
 	}
 
 	public void generateRandomSewerage() {
+		stream = null;
 		for (int y = 0; y < hPipes; y++)
 			for (int x = 0; x < wPipes; x++) {
-				pipes[x][y] = PipesFactory.getInstance().createRandomPipe(
-						new int[] { x, y });
+				pipes[x][y] = PipesFactory.getInstance().createRandomPipe();
 				pipes[x][y].randomRotate();
 			}
 
@@ -87,4 +87,18 @@ public class Sewerage {
 	public Pipe getPipe(int[] position_) {
 		return pipes[position_[0]][position_[1]];
 	}
+
+	@Override
+	public String toString() {
+		String str ="";
+		for (int y = 0; y < hPipes; y++){
+			for (int x = 0; x < wPipes; x++) {
+				str+=(pipes[x][y].getType().toString()+" "+pipes[x][y].getDirection().toString()+" ");
+			}
+			str+="\n";
+		}
+		return str;
+	}
+	
+	
 }
