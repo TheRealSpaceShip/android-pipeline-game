@@ -51,7 +51,6 @@ abstract class BasePipe implements Pipe {
 		}
 	}
 
-	abstract public PipeType getType();
 
 	@Override
 	public Side getDirection() {

@@ -19,7 +19,7 @@ public class PipesFactory {
 		return instance;
 	}
 
-	public Pipe createPipe(PipeType type, int[] position_) {
+	public Pipe createPipe(PipeType type) {
 		switch (type) {
 		case Corner:
 			return new CornerPipe();
