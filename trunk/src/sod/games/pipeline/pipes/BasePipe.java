@@ -6,9 +6,16 @@ import java.util.Random;
 abstract class BasePipe implements Pipe {
 	protected ArrayList<Pair<Side, Side>> connectors;
 	protected Side pipeDirection = Side.North;
+	protected int[] position;
 
 	protected BasePipe() {
 		connectors = new ArrayList<Pair<Side, Side>>();
+		position = new int[]{-1,-1};
+	}
+	
+	protected BasePipe(int[] position_) {
+		connectors = new ArrayList<Pair<Side, Side>>();
+		position = position_;
 	}
 
 	@Override
@@ -27,14 +34,14 @@ abstract class BasePipe implements Pipe {
 	}
 
 	@Override
-	public boolean directFlow(Flow flow) {
-		Side comeFrom = flow.comeFrom();
+	public boolean directFlow(Stream stream) {
+		Side comeFrom = stream.comeFrom();
 		for (Pair<Side, Side> connector : connectors) {
 			if (connector.getFirst() == comeFrom) {
-				flow.setDirection(connector.getSecond());
+				stream.setDirection(connector.getSecond());
 				return true;
 			} else if (connector.getSecond() == comeFrom) {
-				flow.setDirection(connector.getFirst());
+				stream.setDirection(connector.getFirst());
 				return true;
 			}
 		}
@@ -64,5 +71,11 @@ abstract class BasePipe implements Pipe {
 			rotate();
 		}
 	}
+	
+	public int[] getPosition(){
+		return position;
+	}
+	
+	public abstract PipeType getType();
 
 }

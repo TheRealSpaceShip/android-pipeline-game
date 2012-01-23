@@ -15,35 +15,35 @@ public class PipesFactory {
 	}
 	
 
-	public Pipe createPipe(PipeType type){
+	public Pipe createPipe(PipeType type, int[] position_){
 		switch(type){
 		case Corner:
-			return new CornerPipe();
+			return new CornerPipe( position_);
 		case Line:
-			return new LinePipe();
+			return new LinePipe(position_);
 		case Cross:
-			return new CrossPipe();
+			return new CrossPipe( position_);
 		case DoubleCorner:
-			return new DoubleCornerPipe();
+			return new DoubleCornerPipe(position_);
 		
 		default:
 				return null;
 		}
 	}
 	
-	public Pipe createRandomPipe(){
+	public Pipe createRandomPipe(int[] position_){
 		Random rand = new Random();
 		int rInt = rand.nextInt() % 4;
 		
 		switch(rInt){
 		case 0:
-			return new CornerPipe();
+			return new CornerPipe(position_);
 		case 1:
-			return new LinePipe();
+			return new LinePipe(position_);
 		case 2:
-			return new CrossPipe();
+			return new CrossPipe(position_);
 		case 3:
-			return new DoubleCornerPipe();
+			return new DoubleCornerPipe(position_);
 		}
 		
 		return null;

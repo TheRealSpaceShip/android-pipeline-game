@@ -4,5 +4,7 @@ public enum PipeType {
 	Cross,
 	Line,
 	Corner,
-	DoubleCorner
+	DoubleCorner,
+	Gutter,
+	Tap
 }
