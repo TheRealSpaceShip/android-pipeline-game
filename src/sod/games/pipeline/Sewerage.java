@@ -26,7 +26,7 @@ public class Sewerage {
 
 	public void generateRandomSewerage() {
 		for (int y = 0; y < hPipes; y++ )
-			for (int x = 0; y < wPipes; x++ ) {
+			for (int x = 0; x < wPipes; x++ ) {
 				pipes[x][y] = PipesFactory.getInstance().createRandomPipe(new int[]{x,y});
 				pipes[x][y].randomRotate();
 			}
@@ -35,11 +35,13 @@ public class Sewerage {
 		int x = r.nextInt(wPipes);
 		int y = r.nextInt(hPipes);
 		tapPosition = new int[] {x,y};
+		tap = new Tap();
 		pipes[x][y] = tap;
 		tap.randomRotate();
 		
 		x = r.nextInt(wPipes);
 		y = r.nextInt(hPipes);
+		gutter = new Gutter();
 		pipes[x][y] = gutter;
 		gutter.randomRotate();
 		
@@ -51,7 +53,7 @@ public class Sewerage {
 	
 		boolean result = stream.flow(getPipe(stream.getPosition()));
 		
-		if (!result)
+		if (!result || !isStreamInsideScrewerage())
 			lose();
 		else if (getPipe(stream.getPosition()).getType() == PipeType.Gutter )
 			win();
@@ -59,6 +61,9 @@ public class Sewerage {
 			proceed();
 	}
 	
+	private boolean isStreamInsideScrewerage(){
+		return  (0 <= stream.getPosition()[0] && stream.getPosition()[0]< wPipes && 0 <= stream.getPosition()[1]&& stream.getPosition()[1]< hPipes );
+	}
 	public void win(){}
 	public void lose(){}
 	public void proceed(){}

@@ -8,6 +8,11 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Sewerage sewerage = new Sewerage(3, 3);
+        sewerage.generateRandomSewerage();
+        
+        
+        
         setContentView(R.layout.main);
     }
 }

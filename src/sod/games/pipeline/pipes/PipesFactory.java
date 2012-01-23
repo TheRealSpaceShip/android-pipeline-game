@@ -33,7 +33,7 @@ public class PipesFactory {
 	
 	public Pipe createRandomPipe(int[] position_){
 		Random rand = new Random();
-		int rInt = rand.nextInt() % 4;
+		int rInt = (4 + rand.nextInt(4)) % 4;
 		
 		switch(rInt){
 		case 0:
