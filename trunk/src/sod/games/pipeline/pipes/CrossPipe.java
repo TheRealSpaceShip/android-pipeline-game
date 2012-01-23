@@ -1,7 +1,5 @@
 package sod.games.pipeline.pipes;
 
-import java.util.ArrayList;
-
 public class CrossPipe extends BasePipe {
 	public CrossPipe()
 	{

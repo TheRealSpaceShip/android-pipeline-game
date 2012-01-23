@@ -1,7 +1,5 @@
 package sod.games.pipeline.pipes;
 
-import java.util.ArrayList;
-
 public class LinePipe extends BasePipe {
 	public LinePipe(){
 		super();
