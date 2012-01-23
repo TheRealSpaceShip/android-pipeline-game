@@ -24,10 +24,10 @@ abstract class BasePipe implements Pipe {
 	@Override
 	public void rotate() {
 		for (Pair<Side, Side> connector : connectors) {
-			connector.setFirst(cwRotate(connector.getFirst()));
-			connector.setSecond(cwRotate(connector.getSecond()));
+			connector.setFirst(Side.cwRotate(connector.getFirst()));
+			connector.setSecond(Side.cwRotate(connector.getSecond()));
 		}
-		pipeDirection = cwRotate(pipeDirection);
+		pipeDirection = Side.cwRotate(pipeDirection);
 	}
 
 	@Override
@@ -43,20 +43,6 @@ abstract class BasePipe implements Pipe {
 			}
 		}
 		return false;
-	}
-
-	private Side cwRotate(Side side) {
-		switch (side) {
-		case North:
-			return Side.East;
-		case East:
-			return Side.South;
-		case South:
-			return Side.West;
-		case West:
-			return Side.North;
-		}
-		return null;
 	}
 
 	@Override
