@@ -8,4 +8,5 @@ public interface Pipe {
 	public void randomRotate();
 	public boolean directFlow(Stream flow);
 	public PipeType getType();
+	public Side getDirection();
 }

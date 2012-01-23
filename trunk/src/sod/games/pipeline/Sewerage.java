@@ -1,5 +1,7 @@
 package sod.games.pipeline;
 
+import java.util.Random;
+
 import sod.games.pipeline.pipes.Gutter;
 import sod.games.pipeline.pipes.PipeType;
 import sod.games.pipeline.pipes.Stream;
@@ -10,6 +12,7 @@ import sod.games.pipeline.pipes.Tap;
 public class Sewerage {
 	private Pipe pipes[][];
 	private Tap tap;
+	private int tapPosition[];
 	private Gutter gutter;
 	private Stream stream;
 	private int wPipes;
@@ -27,11 +30,24 @@ public class Sewerage {
 				pipes[x][y] = PipesFactory.getInstance().createRandomPipe(new int[]{x,y});
 				pipes[x][y].randomRotate();
 			}
+		
+		Random r = new Random();
+		int x = r.nextInt(wPipes);
+		int y = r.nextInt(hPipes);
+		tapPosition = new int[] {x,y};
+		pipes[x][y] = tap;
+		tap.randomRotate();
+		
+		x = r.nextInt(wPipes);
+		y = r.nextInt(hPipes);
+		pipes[x][y] = gutter;
+		gutter.randomRotate();
+		
 	}
 	
 	public void flowStream(){
 		if (stream == null)
-			stream =new Stream(tap);
+			stream =new Stream(tapPosition, tap.getDirection());
 	
 		boolean result = stream.flow(getPipe(stream.getPosition()));
 		
