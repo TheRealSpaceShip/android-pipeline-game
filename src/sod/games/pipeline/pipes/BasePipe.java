@@ -76,6 +76,6 @@ abstract class BasePipe implements Pipe {
 		return position;
 	}
 	
-	public abstract PipeType getType();
+	public PipeType getType() {return null;};
 
 }

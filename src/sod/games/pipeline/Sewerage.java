@@ -1,6 +1,7 @@
 package sod.games.pipeline;
 
 import sod.games.pipeline.pipes.Gutter;
+import sod.games.pipeline.pipes.PipeType;
 import sod.games.pipeline.pipes.Stream;
 import sod.games.pipeline.pipes.PipesFactory;
 import sod.games.pipeline.pipes.Pipe;
@@ -31,7 +32,22 @@ public class Sewerage {
 	public void flowStream(){
 		if (stream == null)
 			stream =new Stream(tap);
-				
-		stream.flow(pipes[stream.getPosition()[0]][stream.getPosition()[1]]);
+	
+		boolean result = stream.flow(getPipe(stream.getPosition()));
+		
+		if (!result)
+			lose();
+		else if (getPipe(stream.getPosition()).getType() == PipeType.Gutter )
+			win();
+		else
+			proceed();
+	}
+	
+	public void win(){}
+	public void lose(){}
+	public void proceed(){}
+	
+	public Pipe getPipe(int[] position_){
+		return pipes[position_[0]][position_[1]];
 	}
 }
