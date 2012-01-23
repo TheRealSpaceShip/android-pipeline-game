@@ -28,10 +28,6 @@ public class Stream {
 		direction = direction_;
 	}
 	
-	public Stream (Tap tap){
-		position = tap.position;
-		direction = tap.pipeDirection;
-	}
 	
 	public void movePosition(){
 		switch(direction){
@@ -53,10 +49,6 @@ public class Stream {
 			return false;
 			
 		return true;
-	}
-	
-	public void flow (Gutter gutter){
-		
 	}
 	
 	public int[] getPosition(){

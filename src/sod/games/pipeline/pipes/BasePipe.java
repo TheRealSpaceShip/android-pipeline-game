@@ -6,16 +6,13 @@ import java.util.Random;
 abstract class BasePipe implements Pipe {
 	protected ArrayList<Pair<Side, Side>> connectors;
 	protected Side pipeDirection = Side.North;
-	protected int[] position;
 
 	protected BasePipe() {
 		connectors = new ArrayList<Pair<Side, Side>>();
-		position = new int[]{-1,-1};
 	}
 	
 	protected BasePipe(int[] position_) {
 		connectors = new ArrayList<Pair<Side, Side>>();
-		position = position_;
 	}
 
 	@Override
@@ -72,10 +69,13 @@ abstract class BasePipe implements Pipe {
 		}
 	}
 	
-	public int[] getPosition(){
-		return position;
-	}
+	public PipeType getType() {return null;}
+
+	@Override
+	public Side getDirection() {
+		return pipeDirection;
+	};
 	
-	public PipeType getType() {return null;};
+	
 
 }
