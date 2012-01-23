@@ -6,7 +6,7 @@ public interface Pipe {
 	public ArrayList<Pair<Side, Side>> getConnectors();
 	public void rotate();
 	public void randomRotate();
-	public boolean directFlow(Stream flow);
+	public boolean directStream(Stream flow);
 	public PipeType getType();
 	public Side getDirection();
 }

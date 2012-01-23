@@ -1,56 +1,68 @@
 package sod.games.pipeline.pipes;
 
+import android.util.Log;
+
 
 public class Stream {
+	static private boolean D = true;
+	static private String TAG = "Stream";
+	
 	private Side direction;
 	private int[] position;
 	
 	public Side comeFrom(){
+		if (D) Log.i(TAG, "comeFrom() is called");
+		Side direction_ = null;
 		switch(direction){
 		case North:
-			return Side.South;
+			direction_ = Side.South;
+			break;
 		case South:
-			return Side.North;
+			direction_ = Side.North;
+			break;
 		case West:
-			return Side.East;
+			direction_ = Side.East;
+			break;
 		case East :
-			return Side.West;
+			direction_ = Side.West;
+			break;
 		}
-		return null;
+		if (D) Log.i(TAG, "comeFrom() is returning : "+direction_.toString());
+		return direction_;
 	}
 
 	public void setDirection(Side direction_){
+		if (D) Log.i(TAG, "setDirection() is called with params: direction_ = "+direction_.toString());
 		direction = direction_;
 	}
 	
 	public Stream (int[] position_ , Side direction_){
+		if (D) Log.i(TAG, "Stream() is called with params: position_ = "+position_.toString()+"  direction_ = "+direction_.toString());
 		position = position_;
 		direction = direction_;
 	}
 	
 	
-	public void movePosition(){
+	public void flow(){
+		if (D) Log.i(TAG, "flow() is called. Position before = "+position.toString());
 		switch(direction){
 		case North:
-			position[1]++ ;
+			position[1] = position[1] + 1 ;
+			break;
 		case South:
-			position[1]--;
+			position[1] = position[1] - 1;
+			break;
 		case West:
-			position[0]--;
+			position[0] = position[0] - 1;
+			break;
 		case East :
-			position[0]++;
+			position[0] = position[0] + 1;
+			break;
 		}
+		if (D) Log.i(TAG, "flow() is called. Position after = "+position.toString());
 	}
 	
-	public boolean flow (Pipe pipe){
-		if (pipe.directFlow(this))
-			movePosition();
-		else
-			return false;
-			
-		return true;
-	}
-	
+
 	public int[] getPosition(){
 		return position;
 	}
