@@ -2,51 +2,62 @@ package sod.games.pipeline.pipes;
 
 import java.util.Random;
 
+import android.util.Log;
+
 public class PipesFactory {
+	static private boolean D = true;
+	static private String TAG = "PipesFactory";
 	private static PipesFactory instance;
-	private PipesFactory() {}
-	
-	
-	static public PipesFactory getInstance(){
-		if(instance == null){
+
+	private PipesFactory() {
+	}
+
+	static public PipesFactory getInstance() {
+		if (instance == null) {
 			instance = new PipesFactory();
 		}
 		return instance;
 	}
-	
 
-	public Pipe createPipe(PipeType type, int[] position_){
-		switch(type){
+	public Pipe createPipe(PipeType type, int[] position_) {
+		switch (type) {
 		case Corner:
-			return new CornerPipe( position_);
+			return new CornerPipe();
 		case Line:
-			return new LinePipe(position_);
+			return new LinePipe();
 		case Cross:
-			return new CrossPipe( position_);
+			return new CrossPipe();
 		case DoubleCorner:
-			return new DoubleCornerPipe(position_);
-		
+			return new DoubleCornerPipe();
+
 		default:
-				return null;
+			return null;
 		}
 	}
-	
-	public Pipe createRandomPipe(int[] position_){
+
+	public Pipe createRandomPipe() {
 		Random rand = new Random();
+		Pipe newPipe;
 		int rInt = (4 + rand.nextInt(4)) % 4;
-		
-		switch(rInt){
+
+		switch (rInt) {
 		case 0:
-			return new CornerPipe(position_);
+			newPipe = new CornerPipe();
+			break;
 		case 1:
-			return new LinePipe(position_);
+			newPipe = new LinePipe();
+			break;
 		case 2:
-			return new CrossPipe(position_);
+			newPipe = new CrossPipe();
+			break;
 		case 3:
-			return new DoubleCornerPipe(position_);
+			newPipe = new DoubleCornerPipe();
+			break;
+		default:
+			newPipe = null;
 		}
-		
-		return null;
+		Log.i(TAG,"createRandomPipe() is called. Returning value = "+newPipe.toString());
+		return newPipe;
 	}
 
 }

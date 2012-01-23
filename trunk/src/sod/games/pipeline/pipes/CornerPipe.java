@@ -1,9 +1,11 @@
 package sod.games.pipeline.pipes;
 
 public class CornerPipe extends BasePipe{
+	static private boolean D = true;
+	static private String TAG = "CornerPipe";
 	
-	public CornerPipe(int[] position_){
-		super(position_);
+	public CornerPipe(){
+		super();
 		connectors.add(new Pair<Side,Side>(Side.North, Side.East));
 	}
 

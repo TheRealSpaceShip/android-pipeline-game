@@ -3,22 +3,18 @@ package sod.games.pipeline.pipes;
 import java.util.ArrayList;
 import java.util.Random;
 
+import android.util.Log;
+
 abstract class BasePipe implements Pipe {
+
+	private static boolean D = true;
+	private static String TAG = "BasePipe";
+
 	protected ArrayList<Pair<Side, Side>> connectors;
 	protected Side pipeDirection = Side.North;
 
 	protected BasePipe() {
 		connectors = new ArrayList<Pair<Side, Side>>();
-	}
-	
-	protected BasePipe(int[] position_) {
-		connectors = new ArrayList<Pair<Side, Side>>();
-	}
-
-	@Override
-	public ArrayList<Pair<Side, Side>> getConnectors() {
-
-		return connectors;
 	}
 
 	@Override
@@ -54,14 +50,12 @@ abstract class BasePipe implements Pipe {
 			rotate();
 		}
 	}
-	
+
 	abstract public PipeType getType();
 
 	@Override
 	public Side getDirection() {
 		return pipeDirection;
 	};
-	
-	
 
 }
