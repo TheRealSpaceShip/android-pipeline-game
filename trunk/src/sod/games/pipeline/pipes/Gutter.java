@@ -3,7 +3,7 @@ package sod.games.pipeline.pipes;
 public class Gutter extends BasePipe {
 
 	@Override
-	public boolean directFlow(Stream stream) {
+	public boolean directStream(Stream stream) {
 		return (stream.comeFrom() == pipeDirection);
 	}
 	

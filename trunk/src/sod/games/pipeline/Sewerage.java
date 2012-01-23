@@ -20,55 +20,71 @@ public class Sewerage {
 
 	public Sewerage(int wPipes_, int hPipes_) {
 		wPipes = wPipes_;
-		hPipes= hPipes_;
+		hPipes = hPipes_;
 		pipes = new Pipe[wPipes][hPipes];
 	}
 
 	public void generateRandomSewerage() {
-		for (int y = 0; y < hPipes; y++ )
-			for (int x = 0; x < wPipes; x++ ) {
-				pipes[x][y] = PipesFactory.getInstance().createRandomPipe(new int[]{x,y});
+		for (int y = 0; y < hPipes; y++)
+			for (int x = 0; x < wPipes; x++) {
+				pipes[x][y] = PipesFactory.getInstance().createRandomPipe(
+						new int[] { x, y });
 				pipes[x][y].randomRotate();
 			}
-		
+
 		Random r = new Random();
 		int x = r.nextInt(wPipes);
 		int y = r.nextInt(hPipes);
-		tapPosition = new int[] {x,y};
+		tapPosition = new int[] { x, y };
 		tap = new Tap();
 		pipes[x][y] = tap;
 		tap.randomRotate();
-		
+
 		x = r.nextInt(wPipes);
 		y = r.nextInt(hPipes);
 		gutter = new Gutter();
 		pipes[x][y] = gutter;
 		gutter.randomRotate();
-		
+
 	}
-	
-	public void flowStream(){
+
+	public GameState flowStream() {
 		if (stream == null)
-			stream =new Stream(tapPosition, tap.getDirection());
-	
-		boolean result = stream.flow(getPipe(stream.getPosition()));
-		
-		if (!result || !isStreamInsideScrewerage())
-			lose();
-		else if (getPipe(stream.getPosition()).getType() == PipeType.Gutter )
-			win();
-		else
-			proceed();
+			stream = new Stream(tapPosition, tap.getDirection());
+
+		boolean result = getPipe(stream.getPosition()).directStream(stream);
+
+		if (!result)
+			return GameState.LOOSE;
+
+		stream.flow();
+
+		if (!isStreamInsideScrewerage())
+			return GameState.LOOSE;
+
+		if (getPipe(stream.getPosition()).getType() == PipeType.Gutter
+				&& gutter.directStream(stream))
+			return GameState.WIN;
+
+		return GameState.PROCEED;
 	}
-	
-	private boolean isStreamInsideScrewerage(){
-		return  (0 <= stream.getPosition()[0] && stream.getPosition()[0]< wPipes && 0 <= stream.getPosition()[1]&& stream.getPosition()[1]< hPipes );
+
+	private boolean isStreamInsideScrewerage() {
+		return (0 <= stream.getPosition()[0]
+				&& stream.getPosition()[0] < wPipes
+				&& 0 <= stream.getPosition()[1] && stream.getPosition()[1] < hPipes);
 	}
-	public void win(){}
-	public void lose(){}
-	public void proceed(){}
-	
-	public Pipe getPipe(int[] position_){
+
+	public void win() {
+	}
+
+	public void lose() {
+	}
+
+	public void proceed() {
+	}
+
+	public Pipe getPipe(int[] position_) {
 		return pipes[position_[0]][position_[1]];
 	}
 }

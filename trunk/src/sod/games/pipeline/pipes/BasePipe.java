@@ -31,7 +31,7 @@ abstract class BasePipe implements Pipe {
 	}
 
 	@Override
-	public boolean directFlow(Stream stream) {
+	public boolean directStream(Stream stream) {
 		Side comeFrom = stream.comeFrom();
 		for (Pair<Side, Side> connector : connectors) {
 			if (connector.getFirst() == comeFrom) {
@@ -55,7 +55,7 @@ abstract class BasePipe implements Pipe {
 		}
 	}
 	
-	public PipeType getType() {return null;}
+	abstract public PipeType getType();
 
 	@Override
 	public Side getDirection() {
