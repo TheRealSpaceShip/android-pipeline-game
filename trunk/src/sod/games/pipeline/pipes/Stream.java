@@ -43,7 +43,7 @@ public class Stream {
 	}
 	
 	public boolean flow (Pipe pipe){
-		if (!pipe.directFlow(this))
+		if (pipe.directFlow(this))
 			movePosition();
 		else
 			return false;
