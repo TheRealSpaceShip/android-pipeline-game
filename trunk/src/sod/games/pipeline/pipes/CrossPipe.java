@@ -5,8 +5,8 @@ public class CrossPipe extends BasePipe {
 	static private String TAG = "CornerPipe";
 	public CrossPipe(){
 		super();
-		connectors.add(new Pair<Side,Side>(Side.North, Side.South));
-		connectors.add(new Pair<Side,Side>(Side.West, Side.East));
+		connectors.add(new Pair<Direction,Direction>(Direction.North, Direction.South));
+		connectors.add(new Pair<Direction,Direction>(Direction.West, Direction.East));
 	}
 	
 	@Override

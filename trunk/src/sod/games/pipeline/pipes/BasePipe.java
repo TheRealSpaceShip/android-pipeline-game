@@ -10,26 +10,26 @@ abstract class BasePipe implements Pipe {
 	private static boolean D = true;
 	private static String TAG = "BasePipe";
 
-	protected ArrayList<Pair<Side, Side>> connectors;
-	protected Side pipeDirection = Side.North;
+	protected ArrayList<Pair<Direction, Direction>> connectors;
+	protected Direction pipeDirection = Direction.North;
 
 	protected BasePipe() {
-		connectors = new ArrayList<Pair<Side, Side>>();
+		connectors = new ArrayList<Pair<Direction, Direction>>();
 	}
 
 	@Override
 	public void rotate() {
-		for (Pair<Side, Side> connector : connectors) {
-			connector.setFirst(Side.cwRotate(connector.getFirst()));
-			connector.setSecond(Side.cwRotate(connector.getSecond()));
+		for (Pair<Direction, Direction> connector : connectors) {
+			connector.setFirst(Direction.cwRotate(connector.getFirst()));
+			connector.setSecond(Direction.cwRotate(connector.getSecond()));
 		}
-		pipeDirection = Side.cwRotate(pipeDirection);
+		pipeDirection = Direction.cwRotate(pipeDirection);
 	}
 
 	@Override
 	public boolean directStream(Stream stream) {
-		Side comeFrom = stream.comeFrom();
-		for (Pair<Side, Side> connector : connectors) {
+		Direction comeFrom = stream.comeFrom();
+		for (Pair<Direction, Direction> connector : connectors) {
 			if (connector.getFirst() == comeFrom) {
 				stream.setDirection(connector.getSecond());
 				return true;
@@ -53,7 +53,7 @@ abstract class BasePipe implements Pipe {
 
 
 	@Override
-	public Side getDirection() {
+	public Direction getDirection() {
 		return pipeDirection;
 	};
 

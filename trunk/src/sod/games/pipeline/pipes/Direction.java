@@ -1,35 +1,35 @@
 package sod.games.pipeline.pipes;
 
-public enum Side {
+public enum Direction {
 	North,
 	East,
 	South,
 	West;
 	
-	public static Side cwRotate( Side side){
+	public static Direction cwRotate( Direction side){
 		switch (side) {
 		case North:
-			return Side.East;
+			return Direction.East;
 		case East:
-			return Side.South;
+			return Direction.South;
 		case South:
-			return Side.West;
+			return Direction.West;
 		case West:
-			return Side.North;
+			return Direction.North;
 		}
 		return null;
 	}
 	
-	public static Side ccwRotate( Side side){
+	public static Direction ccwRotate( Direction side){
 		switch (side) {
 		case North:
-			return Side.West;
+			return Direction.West;
 		case East:
-			return Side.North;
+			return Direction.North;
 		case South:
-			return Side.East;
+			return Direction.East;
 		case West:
-			return Side.South;
+			return Direction.South;
 		}
 		return null;
 	}

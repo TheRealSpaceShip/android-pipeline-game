@@ -7,36 +7,36 @@ public class Stream {
 	static private boolean D = true;
 	static private String TAG = "Stream";
 	
-	private Side direction;
+	private Direction direction;
 	private int[] position;
 	
-	public Side comeFrom(){
+	public Direction comeFrom(){
 		if (D) Log.i(TAG, "comeFrom() is called");
-		Side direction_ = null;
+		Direction direction_ = null;
 		switch(direction){
 		case North:
-			direction_ = Side.South;
+			direction_ = Direction.South;
 			break;
 		case South:
-			direction_ = Side.North;
+			direction_ = Direction.North;
 			break;
 		case West:
-			direction_ = Side.East;
+			direction_ = Direction.East;
 			break;
 		case East :
-			direction_ = Side.West;
+			direction_ = Direction.West;
 			break;
 		}
 		if (D) Log.i(TAG, "comeFrom() is returning : "+direction_.toString());
 		return direction_;
 	}
 
-	public void setDirection(Side direction_){
+	public void setDirection(Direction direction_){
 		if (D) Log.i(TAG, "setDirection() is called with params: direction_ = "+direction_.toString());
 		direction = direction_;
 	}
 	
-	public Stream (int[] position_ , Side direction_){
+	public Stream (int[] position_ , Direction direction_){
 		if (D) Log.i(TAG, "Stream() is called with params: position_ = "+position_.toString()+"  direction_ = "+direction_.toString());
 		position = position_;
 		direction = direction_;
