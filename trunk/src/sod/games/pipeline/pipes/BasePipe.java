@@ -19,11 +19,13 @@ abstract class BasePipe implements Pipe {
 
 	@Override
 	public void rotate() {
+		if (D) Log.i(TAG,"rotate is called");
 		for (Pair<Direction, Direction> connector : connectors) {
 			connector.setFirst(Direction.cwRotate(connector.getFirst()));
 			connector.setSecond(Direction.cwRotate(connector.getSecond()));
 		}
 		pipeDirection = Direction.cwRotate(pipeDirection);
+		if (D) Log.i(TAG,"new direction : " + pipeDirection.toString());
 	}
 
 	@Override

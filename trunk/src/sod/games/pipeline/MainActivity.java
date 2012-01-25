@@ -10,34 +10,24 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	static private boolean D = true;
 	static private String TAG = "MainActivity";
-	
-	ImageView view;
-	Pipe pipe;
-	ImageManager imageManager;
+
+	SewerageView view;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		view = new ImageView(this);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
+		view = new SewerageView(this);
 		setContentView(view);
-		view.setBackgroundColor(Color.WHITE);
-		imageManager = new ImageManager(getResources());
-		pipe = new Tap();
-		view.setImageBitmap(imageManager.getDirectedPipeTexture(pipe.getType(), pipe.getDirection()));
 	}
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-	if (event.getAction() == MotionEvent.ACTION_DOWN){
-			pipe.rotate();
-			view.setImageBitmap(imageManager.getDirectedPipeTexture(pipe.getType(), pipe.getDirection()));
-	}
-	return true;
-	}
-	
-	
 }
