@@ -24,6 +24,10 @@ public class Sewerage {
 		pipes = new Pipe[wPipes][hPipes];
 	}
 
+	public Pipe[][] getPipes() {
+		return pipes;
+	}
+
 	public void generateRandomSewerage() {
 		stream = null;
 		for (int y = 0; y < hPipes; y++)
@@ -86,6 +90,10 @@ public class Sewerage {
 
 	public Pipe getPipe(int[] position_) {
 		return pipes[position_[0]][position_[1]];
+	}
+	
+	public Pipe getPipe(int x , int y) {
+		return pipes[x][y];
 	}
 
 	@Override
