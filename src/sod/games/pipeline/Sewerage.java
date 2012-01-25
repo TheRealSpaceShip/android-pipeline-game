@@ -59,12 +59,12 @@ public class Sewerage {
 		boolean result = getPipe(stream.getPosition()).directStream(stream);
 
 		if (!result)
-			return GameState.LOOSE;
+			return GameState.LOSE;
 
 		stream.flow();
 
 		if (!isStreamInsideScrewerage())
-			return GameState.LOOSE;
+			return GameState.LOSE;
 
 		if (getPipe(stream.getPosition()).getType() == PipeType.Gutter
 				&& gutter.directStream(stream))
@@ -77,15 +77,6 @@ public class Sewerage {
 		return (0 <= stream.getPosition()[0]
 				&& stream.getPosition()[0] < wPipes
 				&& 0 <= stream.getPosition()[1] && stream.getPosition()[1] < hPipes);
-	}
-
-	public void win() {
-	}
-
-	public void lose() {
-	}
-
-	public void proceed() {
 	}
 
 	public Pipe getPipe(int[] position_) {

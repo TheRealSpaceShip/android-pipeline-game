@@ -31,26 +31,30 @@ public class Stream {
 		return direction_;
 	}
 
+	public Direction getDirection() {
+		return direction;
+	}
+
 	public void setDirection(Direction direction_){
 		if (D) Log.i(TAG, "setDirection() is called with params: direction_ = "+direction_.toString());
 		direction = direction_;
 	}
 	
 	public Stream (int[] position_ , Direction direction_){
-		if (D) Log.i(TAG, "Stream() is called with params: position_ = "+position_.toString()+"  direction_ = "+direction_.toString());
 		position = position_;
 		direction = direction_;
+		if (D) Log.i(TAG, "Stream() is called with params: position_ : ["+position[0]+"]["+position[1]+"]  direction_ = "+direction_.toString());
 	}
 	
 	
 	public void flow(){
-		if (D) Log.i(TAG, "flow() is called. Position before = "+position.toString());
+		if (D) Log.i(TAG, "flow() is called. Position before: ["+position[0]+"]["+position[1]+"]");
 		switch(direction){
 		case North:
-			position[1] = position[1] + 1 ;
+			position[1] = position[1] - 1 ;
 			break;
 		case South:
-			position[1] = position[1] - 1;
+			position[1] = position[1] + 1;
 			break;
 		case West:
 			position[0] = position[0] - 1;
@@ -59,7 +63,7 @@ public class Stream {
 			position[0] = position[0] + 1;
 			break;
 		}
-		if (D) Log.i(TAG, "flow() is called. Position after = "+position.toString());
+		if (D) Log.i(TAG, "flow() is called. Position after = ["+position[0]+"]["+position[1]+"]");
 	}
 	
 

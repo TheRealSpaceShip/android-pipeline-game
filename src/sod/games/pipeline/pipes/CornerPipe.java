@@ -6,7 +6,7 @@ public class CornerPipe extends BasePipe{
 	
 	public CornerPipe(){
 		super();
-		connectors.add(new Pair<Direction,Direction>(Direction.North, Direction.East));
+		connectors.add(new Direction[]{Direction.North, Direction.East});
 	}
 
 	@Override

@@ -5,8 +5,8 @@ public class DoubleCornerPipe extends BasePipe {
 	static private String TAG = "DoubleCornerPipe";
 	public DoubleCornerPipe(){
 		super();
-		connectors.add(new Pair<Direction,Direction>(Direction.North, Direction.East));
-		connectors.add(new Pair<Direction,Direction>(Direction.West, Direction.South));
+		connectors.add(new Direction[]{Direction.North, Direction.East});
+		connectors.add(new Direction[]{Direction.West, Direction.South});
 	}
 	@Override
 	public PipeType getType() {

@@ -1,14 +1,18 @@
 package sod.games.pipeline;
 
+import java.util.concurrent.Callable;
+
 import sod.games.pipeline.pipes.Pipe;
 import sod.games.pipeline.pipes.PipeType;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 public class SewerageView extends SurfaceView {
 	static private boolean D = true;
@@ -21,10 +25,12 @@ public class SewerageView extends SurfaceView {
 	int wPipeBitmap;
 	int hPipeBitmap;
 	Paint paint;
+	Context context;
+	
 
 	public SewerageView(Context context) {
 		super(context);
-
+		this.context = context;
 		setBackgroundColor(Color.WHITE);
 		paint = new Paint();
 		imageManager = new ImageManager(context.getResources());
@@ -66,7 +72,7 @@ public class SewerageView extends SurfaceView {
 			if (D)
 				Log.i(TAG, "pressed pipes[" + x + "][" + y + "]");
 			if (sewerage.getPipe(x, y).getType() == PipeType.Tap) {
-				sewerage.flowStream();
+				timer.post(tick);
 			} else {
 				sewerage.getPipe(x, y).rotate();
 			}
@@ -74,5 +80,40 @@ public class SewerageView extends SurfaceView {
 		}
 		return super.onTouchEvent(event);
 	}
+	
+	Handler timer = new Handler();
+	Runnable tick = new Runnable() {
+		
+		@Override
+		public void run() {
+			GameState state = sewerage.flowStream();
+			switch(state){
+			case WIN:
+				win();
+				break;
+			case LOSE:
+				lose();
+				break;
+			case PROCEED:
+				timer.post(this);
+				break;
+			}
+		
+		}
+
+		
+	};
+	
+	private void lose(){
+		Toast.makeText(context, "LOSER !", Toast.LENGTH_LONG).show();
+		sewerage = new Sewerage(wPipes, hPipes);
+		sewerage.generateRandomSewerage();
+		invalidate();
+	}
+	
+	private void win(){
+		Toast.makeText(context, "WIN !", Toast.LENGTH_LONG).show();		
+	}
+
 
 }
