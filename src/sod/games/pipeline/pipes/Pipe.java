@@ -5,5 +5,5 @@ public interface Pipe {
 	public void randomRotate();
 	public boolean directStream(Stream flow);
 	public PipeType getType();
-	public Side getDirection();
+	public Direction getDirection();
 }
