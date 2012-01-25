@@ -5,7 +5,7 @@ public class LinePipe extends BasePipe {
 	static private String TAG = "LinePipe";
 	public LinePipe(){
 		super();
-		connectors.add(new Pair<Direction,Direction>(Direction.West, Direction.East));
+		connectors.add(new Direction[]{Direction.North, Direction.South});
 	}
 	
 	@Override

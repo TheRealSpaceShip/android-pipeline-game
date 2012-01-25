@@ -10,19 +10,21 @@ abstract class BasePipe implements Pipe {
 	private static boolean D = true;
 	private static String TAG = "BasePipe";
 
-	protected ArrayList<Pair<Direction, Direction>> connectors;
+	protected ArrayList<Direction[]> connectors;
 	protected Direction pipeDirection = Direction.North;
 
 	protected BasePipe() {
-		connectors = new ArrayList<Pair<Direction, Direction>>();
+		connectors = new ArrayList<Direction[]>();
 	}
 
 	@Override
 	public void rotate() {
 		if (D) Log.i(TAG,"rotate is called");
-		for (Pair<Direction, Direction> connector : connectors) {
-			connector.setFirst(Direction.cwRotate(connector.getFirst()));
-			connector.setSecond(Direction.cwRotate(connector.getSecond()));
+		for (Direction[] connector : connectors) {
+			Direction direction = Direction.cwRotate(connector[0]);
+			connector[0] = direction;
+			direction = Direction.cwRotate(connector[1]);
+			connector[1] = direction;
 		}
 		pipeDirection = Direction.cwRotate(pipeDirection);
 		if (D) Log.i(TAG,"new direction : " + pipeDirection.toString());
@@ -31,15 +33,19 @@ abstract class BasePipe implements Pipe {
 	@Override
 	public boolean directStream(Stream stream) {
 		Direction comeFrom = stream.comeFrom();
-		for (Pair<Direction, Direction> connector : connectors) {
-			if (connector.getFirst() == comeFrom) {
-				stream.setDirection(connector.getSecond());
+		if (D) Log.i(TAG,"directStream is called. Stream comed from : "+ comeFrom + " Pipe Type - "+ getType().toString() );
+		for (Direction[] connector : connectors) {
+			if (connector[0] == comeFrom) {
+				stream.setDirection(connector[1]);
+				if (D) Log.i(TAG,"directed to "+ stream.getDirection());
 				return true;
-			} else if (connector.getSecond() == comeFrom) {
-				stream.setDirection(connector.getFirst());
+			} else if (connector[1] == comeFrom) {
+				stream.setDirection(connector[0]);
+				if (D) Log.i(TAG,"directed to "+ stream.getDirection());
 				return true;
 			}
 		}
+		if (D) Log.i(TAG,"No conenctors for stream");
 		return false;
 	}
 
@@ -59,4 +65,8 @@ abstract class BasePipe implements Pipe {
 		return pipeDirection;
 	};
 
+	@Override
+	public String toString(){
+		return "PipeType : "+getType()+" Direction - "+getDirection();
+	}
 }
