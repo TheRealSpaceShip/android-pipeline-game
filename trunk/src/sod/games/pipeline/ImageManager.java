@@ -41,10 +41,10 @@ public class ImageManager {
 		pipeAnimationTextures.put(PipeType.Tap, new AnimationTextureInfo(
 				imageLoad(R.drawable.tap), getImageParams(R.drawable.tap)));
 		pipeAnimationTextures.put(PipeType.Corner,
-				new AnimationTextureInfo(imageLoad(R.drawable.corner),
+				new AnimationTextureInfo(imageLoad(R.drawable.a_corner),
 						getImageParams(R.drawable.corner)));
 		pipeAnimationTextures.put(PipeType.Gutter,
-				new AnimationTextureInfo(imageLoad(R.drawable.gutter),
+				new AnimationTextureInfo(imageLoad(R.drawable.a_gutter),
 						getImageParams(R.drawable.gutter)));
 		pipeAnimationTextures.put(PipeType.Line, new AnimationTextureInfo(
 				imageLoad(R.drawable.a_line), getImageParams(R.drawable.line)));

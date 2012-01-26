@@ -6,6 +6,7 @@ import java.util.Random;
 import sod.games.pipeline.ImageManager;
 
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.util.Log;
 
 public class BasePipe implements LogicPipe, AnimatedPipe {
@@ -18,7 +19,7 @@ public class BasePipe implements LogicPipe, AnimatedPipe {
 
 	protected int frameCount;
 	protected int framesNumber;
-	
+	protected Matrix animationTransformMatrix;
 	protected BasePipe() {
 		pipeDirection = Direction.North;
 		connectors = new ArrayList<Direction[]>();
