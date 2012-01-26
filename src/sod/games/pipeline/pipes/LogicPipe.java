@@ -1,6 +1,6 @@
 package sod.games.pipeline.pipes;
 
-public interface Pipe {
+public interface LogicPipe {
 	public void rotate();
 	public void randomRotate();
 	public boolean directStream(Stream flow);

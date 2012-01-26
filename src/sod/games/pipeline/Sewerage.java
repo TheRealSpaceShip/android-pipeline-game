@@ -6,14 +6,14 @@ import sod.games.pipeline.pipes.Gutter;
 import sod.games.pipeline.pipes.PipeType;
 import sod.games.pipeline.pipes.Stream;
 import sod.games.pipeline.pipes.PipesFactory;
-import sod.games.pipeline.pipes.Pipe;
+import sod.games.pipeline.pipes.LogicPipe;
 import sod.games.pipeline.pipes.Tap;
 
 public class Sewerage {
 	static private boolean D = true;
 	static private String TAG = "Sewerage";
 	
-	private Pipe pipes[][];
+	private LogicPipe pipes[][];
 	private Tap tap;
 	private int tapPosition[];
 	private Gutter gutter;
@@ -24,10 +24,10 @@ public class Sewerage {
 	public Sewerage(int wPipes_, int hPipes_) {
 		wPipes = wPipes_;
 		hPipes = hPipes_;
-		pipes = new Pipe[wPipes][hPipes];
+		pipes = new LogicPipe[wPipes][hPipes];
 	}
 
-	public Pipe[][] getPipes() {
+	public LogicPipe[][] getPipes() {
 		return pipes;
 	}
 
@@ -82,11 +82,11 @@ public class Sewerage {
 				&& 0 <= stream.getPosition()[1] && stream.getPosition()[1] < hPipes);
 	}
 
-	public Pipe getPipe(int[] position_) {
+	public LogicPipe getPipe(int[] position_) {
 		return pipes[position_[0]][position_[1]];
 	}
 	
-	public Pipe getPipe(int x , int y) {
+	public LogicPipe getPipe(int x , int y) {
 		return pipes[x][y];
 	}
 
