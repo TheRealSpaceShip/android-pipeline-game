@@ -10,6 +10,9 @@ import sod.games.pipeline.pipes.Pipe;
 import sod.games.pipeline.pipes.Tap;
 
 public class Sewerage {
+	static private boolean D = true;
+	static private String TAG = "Sewerage";
+	
 	private Pipe pipes[][];
 	private Tap tap;
 	private int tapPosition[];
