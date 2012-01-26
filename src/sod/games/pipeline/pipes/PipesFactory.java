@@ -19,7 +19,7 @@ public class PipesFactory {
 		return instance;
 	}
 
-	public LogicPipe createPipe(PipeType type) {
+	public BasePipe createPipe(PipeType type) {
 		switch (type) {
 		case Corner:
 			return new CornerPipe();
@@ -35,9 +35,9 @@ public class PipesFactory {
 		}
 	}
 
-	public LogicPipe createRandomPipe() {
+	public BasePipe createRandomPipe() {
 		Random rand = new Random();
-		LogicPipe newPipe;
+		BasePipe newPipe;
 		int rInt = (4 + rand.nextInt(4)) % 4;
 
 		switch (rInt) {

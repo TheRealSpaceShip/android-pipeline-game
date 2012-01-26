@@ -8,7 +8,7 @@ import sod.games.pipeline.ImageManager;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-abstract class BasePipe implements LogicPipe, AnimatedPipe {
+public class BasePipe implements LogicPipe, AnimatedPipe {
 
 	private static boolean D = true;
 	private static String TAG = "BasePipe";
@@ -90,12 +90,16 @@ abstract class BasePipe implements LogicPipe, AnimatedPipe {
 	@Override
 	public void nextFrame() {
 		frameCount++;
-		
 	}
 
 	@Override
 	public Bitmap getCurrentFrame() {
 		return ImageManager.getInstance().getFrame(this, frameCount);
+	}
+
+	@Override
+	public PipeType getType() {
+			return null;
 	}
 	
 	
