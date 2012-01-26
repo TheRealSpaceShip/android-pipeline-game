@@ -26,7 +26,6 @@ public class SewerageView extends SurfaceView {
 	int hPipeBitmap;
 	Paint paint;
 	Context context;
-	
 
 	public SewerageView(Context context) {
 		super(context);
@@ -41,15 +40,18 @@ public class SewerageView extends SurfaceView {
 	@Override
 	protected void onLayout(boolean changed, int left, int top, int right,
 			int bottom) {
-		if(D) Log.i(TAG,"onLayout() is called");
-//		super.onLayout(changed, left, top, right, bottom);
+		if (D)
+			Log.i(TAG, "onLayout() is called");
+		// super.onLayout(changed, left, top, right, bottom);
 
 		wPipes = getWidth() / wPipeBitmap;
 		hPipes = getHeight() / hPipeBitmap;
-		
-		sewerage = new Sewerage(wPipes, hPipes);
-		sewerage.generateRandomSewerage();
-		invalidate();
+
+		if (sewerage == null) {
+			sewerage = new Sewerage(wPipes, hPipes);
+			sewerage.generateRandomSewerage();
+			invalidate();
+		}
 	}
 
 	@Override
@@ -70,10 +72,10 @@ public class SewerageView extends SurfaceView {
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
 			int x = (int) event.getX() / wPipeBitmap;
 			int y = (int) event.getY() / hPipeBitmap;
-			
+
 			if (D)
 				Log.i(TAG, "pressed pipes[" + x + "][" + y + "]");
-			
+
 			if (sewerage.getPipe(x, y).getType() == PipeType.Tap) {
 				timer.post(tick);
 			} else {
@@ -83,14 +85,14 @@ public class SewerageView extends SurfaceView {
 		}
 		return super.onTouchEvent(event);
 	}
-	
+
 	Handler timer = new Handler();
 	Runnable tick = new Runnable() {
-		
+
 		@Override
 		public void run() {
 			GameState state = sewerage.flowStream();
-			switch(state){
+			switch (state) {
 			case WIN:
 				win();
 				break;
@@ -103,17 +105,16 @@ public class SewerageView extends SurfaceView {
 			}
 		}
 	};
-	
-	private void lose(){
+
+	private void lose() {
 		Toast.makeText(context, "LOSER !", Toast.LENGTH_LONG).show();
 		sewerage = new Sewerage(wPipes, hPipes);
 		sewerage.generateRandomSewerage();
 		invalidate();
 	}
-	
-	private void win(){
-		Toast.makeText(context, "WIN !", Toast.LENGTH_LONG).show();		
-	}
 
+	private void win() {
+		Toast.makeText(context, "WIN !", Toast.LENGTH_LONG).show();
+	}
 
 }
