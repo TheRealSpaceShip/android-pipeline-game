@@ -3,8 +3,8 @@ package sod.games.pipeline.pipes;
 public class CrossPipe extends BasePipe {
 	static private boolean D = true;
 	static private String TAG = "CornerPipe";
-	private Pipe topPipe;
-	private Pipe bottomPipe;
+	private LogicPipe topPipe;
+	private LogicPipe bottomPipe;
 	public CrossPipe(){
 		topPipe = new LinePipe();
 		bottomPipe = new LinePipe();

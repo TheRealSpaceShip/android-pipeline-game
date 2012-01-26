@@ -17,6 +17,9 @@ public class MainActivity extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
+		ImageManager.getInstance().setResourses(getResources());
+		ImageManager.getInstance().loadPipeTextures();
+		
 		view = new SewerageView(this);
 		setContentView(view);
 	}

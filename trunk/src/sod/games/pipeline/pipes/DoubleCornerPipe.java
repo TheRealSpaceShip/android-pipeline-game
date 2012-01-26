@@ -4,8 +4,8 @@ public class DoubleCornerPipe extends BasePipe {
 	static private boolean D = true;
 	static private String TAG = "DoubleCornerPipe";
 	
-	private Pipe topPipe;
-	private Pipe bottomPipe;
+	private LogicPipe topPipe;
+	private LogicPipe bottomPipe;
 	
 	public DoubleCornerPipe(){
 		topPipe = new CornerPipe();

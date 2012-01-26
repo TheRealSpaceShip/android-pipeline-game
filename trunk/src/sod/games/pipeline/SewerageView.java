@@ -2,7 +2,7 @@ package sod.games.pipeline;
 
 import java.util.concurrent.Callable;
 
-import sod.games.pipeline.pipes.Pipe;
+import sod.games.pipeline.pipes.LogicPipe;
 import sod.games.pipeline.pipes.PipeType;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -19,7 +19,6 @@ public class SewerageView extends SurfaceView {
 	static private String TAG = "SewerageView";
 
 	Sewerage sewerage;
-	ImageManager imageManager;
 	int wPipes;
 	int hPipes;
 	int wPipeBitmap;
@@ -32,9 +31,9 @@ public class SewerageView extends SurfaceView {
 		this.context = context;
 		setBackgroundColor(Color.WHITE);
 		paint = new Paint();
-		imageManager = new ImageManager(context.getResources());
-		wPipeBitmap = imageManager.getPipeTexture(PipeType.Tap).getWidth();
-		hPipeBitmap = imageManager.getPipeTexture(PipeType.Tap).getHeight();
+		
+		wPipeBitmap = ImageManager.getInstance().getPipeTextureParams(PipeType.Tap).wFrameBitmap;
+		hPipeBitmap = ImageManager.getInstance().getPipeTextureParams(PipeType.Tap).hFrameBitmap;
 	}
 
 	@Override
@@ -59,9 +58,8 @@ public class SewerageView extends SurfaceView {
 		super.draw(canvas);
 		for (int y = 0; y < hPipes; y++) {
 			for (int x = 0; x < wPipes; x++) {
-				canvas.drawBitmap(imageManager.getDirectedPipeTexture(sewerage
-						.getPipe(x, y).getType(), sewerage.getPipe(x, y)
-						.getDirection()), x * wPipeBitmap, y * hPipeBitmap,
+				canvas.drawBitmap(ImageManager.getInstance().getPipeTexture(sewerage
+						.getPipe(x, y)), x * wPipeBitmap, y * hPipeBitmap,
 						paint);
 			}
 		}

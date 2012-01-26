@@ -3,18 +3,26 @@ package sod.games.pipeline.pipes;
 import java.util.ArrayList;
 import java.util.Random;
 
+import sod.games.pipeline.ImageManager;
+
+import android.graphics.Bitmap;
 import android.util.Log;
 
-abstract class BasePipe implements Pipe {
+abstract class BasePipe implements LogicPipe, AnimatedPipe {
 
 	private static boolean D = true;
 	private static String TAG = "BasePipe";
 
 	protected ArrayList<Direction[]> connectors;
-	protected Direction pipeDirection = Direction.North;
+	protected Direction pipeDirection;
 
+	protected int frameCount;
+	protected int framesNumber;
+	
 	protected BasePipe() {
+		pipeDirection = Direction.North;
 		connectors = new ArrayList<Direction[]>();
+		frameCount = 0;
 	}
 
 	@Override
@@ -59,7 +67,6 @@ abstract class BasePipe implements Pipe {
 		}
 	}
 
-
 	@Override
 	public Direction getDirection() {
 		return pipeDirection;
@@ -69,4 +76,26 @@ abstract class BasePipe implements Pipe {
 	public String toString(){
 		return "PipeType : "+getType()+" Direction - "+getDirection();
 	}
+	
+	@Override
+	public int getCurrentFrameNumber() {
+		return frameCount;
+	}
+
+	@Override
+	public int getFramesQuantity() {
+		return framesNumber;
+	}
+
+	@Override
+	public void nextFrame() {
+		frameCount++;
+		
+	}
+
+	@Override
+	public Bitmap getFrame() {
+		return ImageManager.getInstance().getFrame(this, frameCount);
+	}
+	
 }

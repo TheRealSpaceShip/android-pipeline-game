@@ -7,42 +7,62 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Rect;
 
+import sod.games.pipeline.pipes.AnimatedPipe;
 import sod.games.pipeline.pipes.Direction;
+import sod.games.pipeline.pipes.LogicPipe;
 import sod.games.pipeline.pipes.PipeType;
 import sod.games.pipeline.pipes.PipesFactory;
 
 public class ImageManager {
-	private HashMap<PipeType, Bitmap> pipeTextures;
+	private HashMap<PipeType, AnimationTextureInfo> pipeAnimationTextures;
 	private Resources res;
+	private static  ImageManager instance;
 	
+	static public ImageManager getInstance(){
+		if(instance == null)
+			instance = new ImageManager();
+		return instance;
+	}
 	
-	public ImageManager(Resources res){
+	public void setResourses(Resources res){
 		this.res = res;
-		pipeTextures = new HashMap<PipeType, Bitmap>(PipeType.values().length);
-		loadPipeTextures();
+	}
+	
+	
+	public ImageManager(){
+		pipeAnimationTextures = new HashMap<PipeType, AnimationTextureInfo>(PipeType.values().length);
 	}
 	
 	public void loadPipeTextures(){
-		pipeTextures.put(PipeType.Tap, imageLoad(R.drawable.tap));
-		pipeTextures.put(PipeType.Gutter, imageLoad(R.drawable.gutter));	
-		pipeTextures.put(PipeType.Corner, imageLoad(R.drawable.corner));	
-		pipeTextures.put(PipeType.DoubleCorner, imageLoad(R.drawable.double_corners));	
-		pipeTextures.put(PipeType.Cross, imageLoad(R.drawable.cross));	
-		pipeTextures.put(PipeType.Line, imageLoad(R.drawable.line));	
+		pipeAnimationTextures.put(PipeType.Tap, new AnimationTextureInfo(imageLoad(R.drawable.tap), getImageParams(R.drawable.tap)));
+		pipeAnimationTextures.put(PipeType.Corner, new AnimationTextureInfo(imageLoad(R.drawable.corner), getImageParams(R.drawable.corner)));
+		pipeAnimationTextures.put(PipeType.Cross, new AnimationTextureInfo(imageLoad(R.drawable.cross), getImageParams(R.drawable.cross)));
+		pipeAnimationTextures.put(PipeType.DoubleCorner, new AnimationTextureInfo(imageLoad(R.drawable.double_corners), getImageParams(R.drawable.double_corners)));
+		pipeAnimationTextures.put(PipeType.Gutter, new AnimationTextureInfo(imageLoad(R.drawable.gutter), getImageParams(R.drawable.gutter)));
+		pipeAnimationTextures.put(PipeType.Line, new AnimationTextureInfo(imageLoad(R.drawable.a_line), getImageParams(R.drawable.line)));
 	}
 	
 	private Bitmap imageLoad(int id){
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		return BitmapFactory.decodeResource(res, id,options );
 	}
+	
+	private Options getImageParams(int id){
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeResource(res, id, options);
+		return options;
+	}
 
-	public Bitmap getPipeTexture(PipeType type){
-		return pipeTextures.get(type);
+	public Bitmap getPipeTexture(LogicPipe pipe){
+		return getFrame(pipe, 0);
 	}
 	
-	public Bitmap getDirectedPipeTexture(PipeType type, Direction direction){
+	private Matrix getRotationMatrix(Direction direction){
 		Matrix matrix = new Matrix();
 		matrix.reset();
 		
@@ -60,8 +80,19 @@ public class ImageManager {
 				matrix.setRotate(270);
 				break;
 		}
+		return matrix;
 		
-		return Bitmap.createBitmap(pipeTextures.get(type), 0, 0, pipeTextures.get(type).getWidth(), pipeTextures.get(type).getHeight(), matrix, false);
+	}
+	
+	public Bitmap getFrame (LogicPipe pipe, int frame){
+		PipeType type = pipe.getType();
+		AnimationTextureInfo textureInfo = pipeAnimationTextures.get(type);
+		Rect rect = textureInfo.getFrameRect(frame);
+		return Bitmap.createBitmap(textureInfo.texture, rect.left  ,rect.top ,rect.right, rect.bottom, getRotationMatrix(pipe.getDirection()), false);
+	}
+
+	public AnimationTextureInfo getPipeTextureParams(PipeType type) {
+		return pipeAnimationTextures.get(type);
 	}
 
 	
