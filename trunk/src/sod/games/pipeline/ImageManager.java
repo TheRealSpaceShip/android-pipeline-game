@@ -28,7 +28,7 @@ public class ImageManager {
 		pipeTextures.put(PipeType.Tap, imageLoad(R.drawable.tap));
 		pipeTextures.put(PipeType.Gutter, imageLoad(R.drawable.gutter));	
 		pipeTextures.put(PipeType.Corner, imageLoad(R.drawable.corner));	
-		pipeTextures.put(PipeType.DoubleCorner, imageLoad(R.drawable.double_cross));	
+		pipeTextures.put(PipeType.DoubleCorner, imageLoad(R.drawable.double_corners));	
 		pipeTextures.put(PipeType.Cross, imageLoad(R.drawable.cross));	
 		pipeTextures.put(PipeType.Line, imageLoad(R.drawable.line));	
 	}
