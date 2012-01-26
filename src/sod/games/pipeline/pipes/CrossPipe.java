@@ -6,7 +6,6 @@ public class CrossPipe extends BasePipe {
 	private Pipe topPipe;
 	private Pipe bottomPipe;
 	public CrossPipe(){
-		super();
 		topPipe = new LinePipe();
 		bottomPipe = new LinePipe();
 		bottomPipe.rotate();
