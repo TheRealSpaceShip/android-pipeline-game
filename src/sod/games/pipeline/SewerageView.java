@@ -79,7 +79,8 @@ public class SewerageView extends SurfaceView {
 			} else {
 				sewerage.getPipe(x, y).rotate();
 			}
-			invalidate();
+			
+			invalidate( x * wPipeBitmap , y * hPipeBitmap, (x+1) * wPipeBitmap , (y+1) * hPipeBitmap );
 		}
 		return super.onTouchEvent(event);
 	}
