@@ -34,26 +34,27 @@ public class SewerageView extends SurfaceView {
 		setBackgroundColor(Color.WHITE);
 		paint = new Paint();
 		imageManager = new ImageManager(context.getResources());
+		wPipeBitmap = imageManager.getPipeTexture(PipeType.Tap).getWidth();
+		hPipeBitmap = imageManager.getPipeTexture(PipeType.Tap).getHeight();
 	}
 
 	@Override
 	protected void onLayout(boolean changed, int left, int top, int right,
 			int bottom) {
+		if(D) Log.i(TAG,"onLayout() is called");
+//		super.onLayout(changed, left, top, right, bottom);
 
-		wPipeBitmap = imageManager.getPipeTexture(PipeType.Tap).getWidth();
-		hPipeBitmap = imageManager.getPipeTexture(PipeType.Tap).getHeight();
 		wPipes = getWidth() / wPipeBitmap;
 		hPipes = getHeight() / hPipeBitmap;
-
+		
 		sewerage = new Sewerage(wPipes, hPipes);
 		sewerage.generateRandomSewerage();
-		super.onLayout(changed, left, top, right, bottom);
+		invalidate();
 	}
 
 	@Override
 	public void draw(Canvas canvas) {
 		super.draw(canvas);
-
 		for (int y = 0; y < hPipes; y++) {
 			for (int x = 0; x < wPipes; x++) {
 				canvas.drawBitmap(imageManager.getDirectedPipeTexture(sewerage
@@ -69,8 +70,10 @@ public class SewerageView extends SurfaceView {
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
 			int x = (int) event.getX() / wPipeBitmap;
 			int y = (int) event.getY() / hPipeBitmap;
+			
 			if (D)
 				Log.i(TAG, "pressed pipes[" + x + "][" + y + "]");
+			
 			if (sewerage.getPipe(x, y).getType() == PipeType.Tap) {
 				timer.post(tick);
 			} else {
@@ -98,10 +101,7 @@ public class SewerageView extends SurfaceView {
 				timer.post(this);
 				break;
 			}
-		
 		}
-
-		
 	};
 	
 	private void lose(){
