@@ -59,7 +59,7 @@ public class SewerageView extends SurfaceView {
 		super.draw(canvas);
 		for (int y = 0; y < hPipes; y++) {
 			for (int x = 0; x < wPipes; x++) {
-				canvas.drawBitmap(((AnimatedPipe)sewerage.getPipe(x, y)).getCurrentFrame(), x * wPipeBitmap, y * hPipeBitmap,
+				canvas.drawBitmap(sewerage.getPipe(x, y).getCurrentFrame(), x * wPipeBitmap, y * hPipeBitmap,
 						paint);
 			}
 		}

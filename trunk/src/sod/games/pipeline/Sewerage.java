@@ -2,6 +2,7 @@ package sod.games.pipeline;
 
 import java.util.Random;
 
+import sod.games.pipeline.pipes.BasePipe;
 import sod.games.pipeline.pipes.Gutter;
 import sod.games.pipeline.pipes.PipeType;
 import sod.games.pipeline.pipes.Stream;
@@ -13,7 +14,7 @@ public class Sewerage {
 	static private boolean D = true;
 	static private String TAG = "Sewerage";
 	
-	private LogicPipe pipes[][];
+	private BasePipe pipes[][];
 	private Tap tap;
 	private int tapPosition[];
 	private Gutter gutter;
@@ -24,7 +25,7 @@ public class Sewerage {
 	public Sewerage(int wPipes_, int hPipes_) {
 		wPipes = wPipes_;
 		hPipes = hPipes_;
-		pipes = new LogicPipe[wPipes][hPipes];
+		pipes = new BasePipe[wPipes][hPipes];
 	}
 
 	public LogicPipe[][] getPipes() {
@@ -82,11 +83,11 @@ public class Sewerage {
 				&& 0 <= stream.getPosition()[1] && stream.getPosition()[1] < hPipes);
 	}
 
-	public LogicPipe getPipe(int[] position_) {
+	public BasePipe getPipe(int[] position_) {
 		return pipes[position_[0]][position_[1]];
 	}
 	
-	public LogicPipe getPipe(int x , int y) {
+	public BasePipe getPipe(int x , int y) {
 		return pipes[x][y];
 	}
 
