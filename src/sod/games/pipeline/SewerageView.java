@@ -2,6 +2,7 @@ package sod.games.pipeline;
 
 import java.util.concurrent.Callable;
 
+import sod.games.pipeline.pipes.AnimatedPipe;
 import sod.games.pipeline.pipes.LogicPipe;
 import sod.games.pipeline.pipes.PipeType;
 import android.content.Context;
@@ -58,8 +59,7 @@ public class SewerageView extends SurfaceView {
 		super.draw(canvas);
 		for (int y = 0; y < hPipes; y++) {
 			for (int x = 0; x < wPipes; x++) {
-				canvas.drawBitmap(ImageManager.getInstance().getPipeTexture(sewerage
-						.getPipe(x, y)), x * wPipeBitmap, y * hPipeBitmap,
+				canvas.drawBitmap(((AnimatedPipe)sewerage.getPipe(x, y)).getCurrentFrame(), x * wPipeBitmap, y * hPipeBitmap,
 						paint);
 			}
 		}

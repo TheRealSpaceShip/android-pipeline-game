@@ -94,8 +94,10 @@ abstract class BasePipe implements LogicPipe, AnimatedPipe {
 	}
 
 	@Override
-	public Bitmap getFrame() {
+	public Bitmap getCurrentFrame() {
 		return ImageManager.getInstance().getFrame(this, frameCount);
 	}
+	
+	
 	
 }
