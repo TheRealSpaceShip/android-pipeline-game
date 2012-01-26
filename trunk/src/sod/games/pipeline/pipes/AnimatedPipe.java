@@ -6,5 +6,5 @@ public interface AnimatedPipe {
 	public int getCurrentFrameNumber();
 	public int getFramesQuantity();
 	public void nextFrame();
-	public Bitmap getFrame();
+	public Bitmap getCurrentFrame();
 }
