@@ -1,12 +1,9 @@
-package sod.games.pipeline.pipes;
+package sod.games.pipeline;
 
 public enum Direction {
-	North,
-	East,
-	South,
-	West;
-	
-	public static Direction cwRotate( Direction side){
+	North, East, South, West;
+
+	public static Direction cwRotate(Direction side) {
 		switch (side) {
 		case North:
 			return Direction.East;
@@ -19,8 +16,8 @@ public enum Direction {
 		}
 		return null;
 	}
-	
-	public static Direction ccwRotate( Direction side){
+
+	public static Direction ccwRotate(Direction side) {
 		switch (side) {
 		case North:
 			return Direction.West;
@@ -32,11 +29,25 @@ public enum Direction {
 			return Direction.South;
 		}
 		return null;
+	}
+
+	public static float getAngle(Direction direction) {
+		switch (direction) {
+		case North:
+			return 0;
+		case East:
+			return 90;
+		case South:
+			return 180;
+		case West:
+			return 270;
+		}
+		return 0;
 	}
 
 	@Override
 	public String toString() {
-		return super.toString().substring(0,1);
+		return super.toString().substring(0, 1);
 	}
-	
+
 }

@@ -1,10 +1,15 @@
-package sod.games.pipeline;
+package sod.games.pipeline.sewerage;
 
+import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
-import sod.games.pipeline.pipes.AnimatedPipe;
+import sod.games.pipeline.GameState;
+import sod.games.pipeline.animation.Animation;
+import sod.games.pipeline.animation.AnimationLayersManager;
+import sod.games.pipeline.pipes.BasePipe;
 import sod.games.pipeline.pipes.LogicPipe;
 import sod.games.pipeline.pipes.PipeType;
+import sod.games.pipeline.pipes.PipesFactory;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -26,15 +31,17 @@ public class SewerageView extends SurfaceView {
 	int hPipeBitmap;
 	Paint paint;
 	Context context;
+	AnimationLayersManager layersManager;
 
 	public SewerageView(Context context) {
 		super(context);
 		this.context = context;
 		setBackgroundColor(Color.WHITE);
 		paint = new Paint();
-		
-		wPipeBitmap = ImageManager.getInstance().getPipeTextureParams(PipeType.Tap).wFrameBitmap;
-		hPipeBitmap = ImageManager.getInstance().getPipeTextureParams(PipeType.Tap).hFrameBitmap;
+
+		wPipeBitmap = 40;
+		hPipeBitmap = 40;
+
 	}
 
 	@Override
@@ -46,23 +53,29 @@ public class SewerageView extends SurfaceView {
 
 		wPipes = getWidth() / wPipeBitmap;
 		hPipes = getHeight() / hPipeBitmap;
+		
+		layersManager = new AnimationLayersManager();
+		layersManager.addLayer(wPipes, hPipes);
+		layersManager.addLayer(wPipes, hPipes);
+		
+		sewerage = new Sewerage(wPipes, hPipes);
 
-		if (sewerage == null) {
-			sewerage = new Sewerage(wPipes, hPipes);
-			sewerage.generateRandomSewerage();
-			invalidate();
+		for (int y = 0; y < hPipes; y++) {
+			for (int x = 0; x < wPipes; x++) {
+				BasePipe pipe = PipesFactory.getInstance()
+						.createRandomPipe();
+				sewerage.setPipe(x, y, pipe);
+				layersManager.putAnimatedItem(x, y, pipe.getAnimations());
+				layersManager.setTilePosition(x, y, x * wPipeBitmap + wPipeBitmap/2,y * hPipeBitmap + hPipeBitmap/2 );
+			}
 		}
+		invalidate();
 	}
 
 	@Override
 	public void draw(Canvas canvas) {
 		super.draw(canvas);
-		for (int y = 0; y < hPipes; y++) {
-			for (int x = 0; x < wPipes; x++) {
-				canvas.drawBitmap(sewerage.getPipe(x, y).getCurrentFrame(), x * wPipeBitmap, y * hPipeBitmap,
-						paint);
-			}
-		}
+		layersManager.draw(canvas, paint);
 	}
 
 	@Override
@@ -78,9 +91,11 @@ public class SewerageView extends SurfaceView {
 				timer.post(tick);
 			} else {
 				sewerage.getPipe(x, y).rotate();
+				layersManager.rotateItem(x, y, 90);
 			}
-			
-			invalidate( x * wPipeBitmap , y * hPipeBitmap, (x+1) * wPipeBitmap , (y+1) * hPipeBitmap );
+
+			invalidate(x * wPipeBitmap, y * hPipeBitmap, (x + 1) * wPipeBitmap,
+					(y + 1) * hPipeBitmap);
 		}
 		return super.onTouchEvent(event);
 	}

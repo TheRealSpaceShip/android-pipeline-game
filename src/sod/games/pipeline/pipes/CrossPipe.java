@@ -1,6 +1,9 @@
 package sod.games.pipeline.pipes;
 
+import sod.games.pipeline.Direction;
 import sod.games.pipeline.ImageManager;
+import sod.games.pipeline.animation.Animation;
+import sod.games.pipeline.sewerage.Stream;
 import android.graphics.Bitmap;
 
 public class CrossPipe extends BasePipe {
@@ -36,9 +39,8 @@ public class CrossPipe extends BasePipe {
 	}
 
 	@Override
-	public Bitmap getCurrentFrame() {
-		return ImageManager.overlay2Bitmaps(bottomPipe.getCurrentFrame(),
-				topPipe.getCurrentFrame());
+	public Animation[] getAnimations() {
+		return new Animation[]{topPipe.getAnimations()[0], bottomPipe.getAnimations()[0]};
 	}
 
 }

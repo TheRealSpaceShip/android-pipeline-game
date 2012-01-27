@@ -1,5 +1,7 @@
 package sod.games.pipeline.pipes;
 
+import sod.games.pipeline.sewerage.Stream;
+
 public class Tap extends BasePipe {
 
 	static private boolean D = true;

@@ -3,13 +3,18 @@ package sod.games.pipeline.pipes;
 import java.util.ArrayList;
 import java.util.Random;
 
+import sod.games.pipeline.Direction;
 import sod.games.pipeline.ImageManager;
+import sod.games.pipeline.animation.Animation;
+import sod.games.pipeline.animation.AnimationItem;
+import sod.games.pipeline.sewerage.Stream;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory.Options;
 import android.graphics.Matrix;
 import android.util.Log;
 
-public class BasePipe implements LogicPipe, AnimatedPipe {
+public class BasePipe implements LogicPipe, AnimationItem {
 
 	private static boolean D = true;
 	private static String TAG = "BasePipe";
@@ -20,6 +25,9 @@ public class BasePipe implements LogicPipe, AnimatedPipe {
 	protected int frameCount;
 	protected int framesNumber;
 	protected Matrix animationTransformMatrix;
+	
+	protected Animation animation;
+	
 	protected BasePipe() {
 		pipeDirection = Direction.North;
 		connectors = new ArrayList<Direction[]>();
@@ -79,30 +87,17 @@ public class BasePipe implements LogicPipe, AnimatedPipe {
 	}
 	
 	@Override
-	public int getCurrentFrameNumber() {
-		return frameCount;
-	}
-
-	@Override
-	public int getFramesQuantity() {
-		return framesNumber;
-	}
-
-	@Override
-	public void nextFrame() {
-		frameCount++;
-	}
-
-	@Override
-	public Bitmap getCurrentFrame() {
-		return ImageManager.getInstance().getFrame(this, frameCount);
-	}
-
-	@Override
 	public PipeType getType() {
 			return null;
 	}
-	
-	
+
+	@Override
+	public Animation[] getAnimations() {
+		Bitmap src = ImageManager.getInstance().getPipeBitmap(getType());
+		Options options = ImageManager.getInstance().getFrameOptions(getType());
+		int frameNumbers = (int)src.getHeight() / options.outHeight * (int)src.getWidth() / options.outWidth;
+		float angle = Direction.getAngle(getDirection());
+		return new Animation[]{ new Animation(src, options.outWidth, options.outHeight, frameNumbers, -1, -1, angle, false)};
+	}
 	
 }

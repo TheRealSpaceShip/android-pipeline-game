@@ -1,4 +1,4 @@
-package sod.games.pipeline.pipes;
+package sod.games.pipeline;
 
 public class Pair < A, B > {
 	private A first;

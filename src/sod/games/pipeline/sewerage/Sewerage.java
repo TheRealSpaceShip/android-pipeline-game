@@ -1,11 +1,11 @@
-package sod.games.pipeline;
+package sod.games.pipeline.sewerage;
 
 import java.util.Random;
 
+import sod.games.pipeline.GameState;
 import sod.games.pipeline.pipes.BasePipe;
 import sod.games.pipeline.pipes.Gutter;
 import sod.games.pipeline.pipes.PipeType;
-import sod.games.pipeline.pipes.Stream;
 import sod.games.pipeline.pipes.PipesFactory;
 import sod.games.pipeline.pipes.LogicPipe;
 import sod.games.pipeline.pipes.Tap;
@@ -21,6 +21,7 @@ public class Sewerage {
 	private Stream stream;
 	private int wPipes;
 	private int hPipes;
+	
 
 	public Sewerage(int wPipes_, int hPipes_) {
 		wPipes = wPipes_;
@@ -89,6 +90,10 @@ public class Sewerage {
 	
 	public BasePipe getPipe(int x , int y) {
 		return pipes[x][y];
+	}
+	
+	public void setPipe(int x , int y, BasePipe pipe) {
+		pipes[x][y] = pipe;
 	}
 
 	@Override
