@@ -22,6 +22,8 @@ public class Animation {
 	private boolean repeat;
 	private boolean end;
 
+
+
 	public Animation(Bitmap src, int frameWidth, int frameHeight,
 			int frameNumber, int positionX, int positionY, float angle, boolean repeat) {
 		this.src = src;
@@ -93,4 +95,7 @@ public class Animation {
 		this.angle = angle;
 	}
 
+	public boolean isEnd() {
+		return end;
+	}
 }

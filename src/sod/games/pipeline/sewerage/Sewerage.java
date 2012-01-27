@@ -1,13 +1,19 @@
 package sod.games.pipeline.sewerage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import android.util.Pair;
+
+import sod.games.pipeline.Direction;
 import sod.games.pipeline.GameState;
 import sod.games.pipeline.pipes.BasePipe;
 import sod.games.pipeline.pipes.Gutter;
 import sod.games.pipeline.pipes.PipeType;
 import sod.games.pipeline.pipes.PipesFactory;
 import sod.games.pipeline.pipes.LogicPipe;
+import sod.games.pipeline.pipes.StreamRoadInformation;
 import sod.games.pipeline.pipes.Tap;
 
 public class Sewerage {
@@ -18,15 +24,18 @@ public class Sewerage {
 	private Tap tap;
 	private int tapPosition[];
 	private Gutter gutter;
+	private int gutterPosition[];
 	private Stream stream;
 	private int wPipes;
 	private int hPipes;
+	private List<StreamRoadInformation> streamRoad;
 	
 
 	public Sewerage(int wPipes_, int hPipes_) {
 		wPipes = wPipes_;
 		hPipes = hPipes_;
 		pipes = new BasePipe[wPipes][hPipes];
+		streamRoad = new ArrayList<StreamRoadInformation>();
 	}
 
 	public LogicPipe[][] getPipes() {
@@ -35,6 +44,7 @@ public class Sewerage {
 
 	public void generateRandomSewerage() {
 		stream = null;
+		streamRoad = new ArrayList<StreamRoadInformation>();
 		for (int y = 0; y < hPipes; y++)
 			for (int x = 0; x < wPipes; x++) {
 				pipes[x][y] = PipesFactory.getInstance().createRandomPipe();
@@ -52,6 +62,7 @@ public class Sewerage {
 		x = r.nextInt(wPipes);
 		y = r.nextInt(hPipes);
 		gutter = new Gutter();
+		gutterPosition = new int[] { x, y };
 		pipes[x][y] = gutter;
 		gutter.randomRotate();
 
@@ -61,20 +72,22 @@ public class Sewerage {
 		if (stream == null)
 			stream = new Stream(tapPosition, tap.getDirection());
 
+	
 		boolean result = getPipe(stream.getPosition()).directStream(stream);
 
 		if (!result)
 			return GameState.LOSE;
-
+		streamRoad.add(new StreamRoadInformation(getPipe(stream.getPosition()), stream.comeFrom(), stream.getPosition()));
 		stream.flow();
 
 		if (!isStreamInsideScrewerage())
 			return GameState.LOSE;
 
 		if (getPipe(stream.getPosition()).getType() == PipeType.Gutter
-				&& gutter.directStream(stream))
+				&& gutter.directStream(stream)){
+			streamRoad.add(new StreamRoadInformation(gutter, stream.comeFrom(), gutterPosition));
 			return GameState.WIN;
-
+		}
 		return GameState.PROCEED;
 	}
 
@@ -106,5 +119,9 @@ public class Sewerage {
 			str+="\n";
 		}
 		return str;
+	}
+	
+	public List<StreamRoadInformation> getStreamRoad(){
+		return streamRoad;
 	}
 }

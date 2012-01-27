@@ -55,5 +55,27 @@ public class AnimationLayersManager {
 		for (AnimationLayer layer : layers)
 			layer.draw(c, paint);
 	}
+	
+	public void update (int x, int y, int deep){
+		layers.get(deep).update(x, y);
+	}
+	
+	public void update(int x, int y){
+		for (AnimationLayer layer : layers)
+			layer.update(x, y);
+	}
+	
+	public boolean isEnded(int x, int y,int deep){
+		return layers.get(deep).isEnded(x, y);
+	}
+	
+	public boolean isEnded(int x, int y){
+		boolean result = true;
+		for (AnimationLayer layer : layers)
+			result = result && layer.isEnded(x, y);
+		return result;
+	}
+	
+	
 
 }
