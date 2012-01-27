@@ -1,5 +1,7 @@
 package sod.games.pipeline.pipes;
 
+import sod.games.pipeline.sewerage.Stream;
+
 public class Gutter extends BasePipe {
 	static private boolean D = true;
 	static private String TAG = "Gutter";

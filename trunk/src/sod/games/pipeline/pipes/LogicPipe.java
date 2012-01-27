@@ -1,5 +1,8 @@
 package sod.games.pipeline.pipes;
 
+import sod.games.pipeline.Direction;
+import sod.games.pipeline.sewerage.Stream;
+
 public interface LogicPipe {
 	public void rotate();
 	public void randomRotate();

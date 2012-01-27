@@ -1,6 +1,9 @@
 package sod.games.pipeline.pipes;
 
+import sod.games.pipeline.Direction;
 import sod.games.pipeline.ImageManager;
+import sod.games.pipeline.animation.Animation;
+import sod.games.pipeline.sewerage.Stream;
 import android.graphics.Bitmap;
 
 public class DoubleCornerPipe extends BasePipe {
@@ -38,11 +41,9 @@ public class DoubleCornerPipe extends BasePipe {
 	public PipeType getType() {
 		return PipeType.DoubleCorner;
 	}
-
+	
 	@Override
-	public Bitmap getCurrentFrame() {
-		return ImageManager.overlay2Bitmaps(bottomPipe.getCurrentFrame(), topPipe.getCurrentFrame());
+	public Animation[] getAnimations() {
+		return new Animation[]{topPipe.getAnimations()[0], bottomPipe.getAnimations()[0]};
 	}
-	
-	
 }

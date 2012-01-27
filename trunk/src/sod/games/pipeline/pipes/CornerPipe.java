@@ -1,5 +1,7 @@
 package sod.games.pipeline.pipes;
 
+import sod.games.pipeline.Direction;
+
 public class CornerPipe extends BasePipe{
 	static private boolean D = true;
 	static private String TAG = "CornerPipe";

@@ -1,5 +1,6 @@
-package sod.games.pipeline.pipes;
+package sod.games.pipeline.sewerage;
 
+import sod.games.pipeline.Direction;
 import android.util.Log;
 
 
